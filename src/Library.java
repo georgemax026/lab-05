@@ -1,10 +1,29 @@
+/*
+Library.java
+ */
 import java.util.ArrayList;
 import java.util.Date;
 
 public class Library {
     public static void main(String[] args) {
-        System.out.println("Hello World!");
+        // create book 1
+        Author authorOne =  createAuthor("Guenther", "Steiner", Country.ITALY, new Date(1965, 4, 7));
+        ArrayList<Author> bookOneAuthors = new ArrayList<>();
+        bookOneAuthors.add(authorOne);
+        Book bookOne = createBook("Surviving to Drive", bookOneAuthors, 2023, "9781787636286", 304, "Transworld Publishers Ltd");
+        // create book 2
+        Author authorTwo =  createAuthor("Adrian", "Newey", Country.ENGLAND, new Date(1958, 12, 26));
+        ArrayList<Author> bookTwoAuthors = new ArrayList<>();
+        bookTwoAuthors.add(authorTwo);
+//        Book bookTwo = createBook("How to Build a Car", bookTwoAuthors, 2017, "9780008196806", 400, "HarperCollins Publishers");
+        Book bookTwo = createBook("How to Build a Car", bookTwoAuthors, 400);
 
+
+        System.out.println(bookOne.toString());
+        System.out.println(bookTwo.toString());
+        System.out.println(bookOne.morePagesThanToString(bookTwo));
+//        System.out.println(bookTwo.latestPublishYearToString(bookOne));
+        System.out.println(bookOne.latestPublishYearToString(bookTwo));
     }
 
 

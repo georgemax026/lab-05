@@ -51,10 +51,17 @@ public class Book {
     }
 
     public int latestPublishYear (Book book) {
-        if (this.publishYear > book.getPublishYear()) {
-            return 1;
+        // publish year may have not been initialized yet, because one constructor allows it
+        if  (!book.hasPublishYear()) {
+            throw new IllegalArgumentException("Given book publishYear has not been initialized");
+        } else if (!this.hasPublishYear()) {
+            throw new IllegalArgumentException("This book publishYear has not been initialized");
         } else {
-            return 0;
+            if (this.publishYear > book.getPublishYear()) {
+                return 1;
+            } else {
+                return 0;
+            }
         }
     }
 

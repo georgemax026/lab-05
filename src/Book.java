@@ -40,7 +40,19 @@ public class Book {
     public int getPages() {
         return this.pages;
     }
-
+    // Setters
+    public void setIsbn(String isbn) {
+        this.isbn = isbn;
+    }
+    public void setPublishYear(int publishYear) {
+        this.publishYear = publishYear;
+    }
+    public void setPublisher(String publisher) {
+        this.publisher = publisher;
+    }
+    public Boolean hasPublishYear() {
+        return !(this.publishYear == null);
+    }
     // Methods
     public int morePagesThan (Book book) {
         if (this.pages > book.getPages()) {

@@ -1,3 +1,6 @@
+/*
+Author.java
+ */
 import java.util.Date;
 
 public class Author {
@@ -51,6 +54,6 @@ public class Author {
     // toString implementation
     @Override
     public String toString() {
-        return "firstName = " + this.firstName + ", lastName = " + this.lastName + ", birthCountry =" + this.birthCountry.toString() + ", birthDate = " + this.birthDate.toString();
+        return "firstName = " + this.firstName + ", lastName = " + this.lastName + ", birthCountry = " + this.birthCountry.toString() + ", birthDate = " + this.birthDate.getDate() + "/" + this.birthDate.getMonth() + "/" +  this.birthDate.getYear();
     }
 }

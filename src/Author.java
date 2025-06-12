@@ -54,6 +54,6 @@ public class Author {
     // toString implementation
     @Override
     public String toString() {
-        return "firstName = " + this.firstName + ", lastName = " + this.lastName + ", birthCountry = " + this.birthCountry.toString() + ", birthDate = " + this.birthDate.getDate() + "/" + this.birthDate.getMonth() + "/" +  this.birthDate.getYear();
+        return "firstName = " + this.firstName + ", lastName = " + this.lastName + ", birthCountry = " + this.birthCountry.toString() + ", birthDate = " + this.birthDate.getDate() + "/" + (this.birthDate.getMonth() + 1) + "/" +  this.birthDate.getYear();
     }
 }

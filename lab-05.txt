@@ -1,0 +1,224 @@
+/*
+Country.java
+ */
+public enum Country {
+    GREECE, ITALY, GERMANY, SPAIN, ENGLAND
+}
+/*
+Author.java
+ */
+import java.util.Date;
+
+public class Author {
+    private String firstName;
+    private String lastName;
+    private Country birthCountry;
+    private Date birthDate;
+
+    // Constructors
+    public Author(String firstName, String lastName) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.birthCountry = null;
+        this.birthDate = null;
+    }
+    public Author(String firstName, String lastName, Country birthCountry, Date birthDate) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.birthCountry = birthCountry;
+        this.birthDate = birthDate;
+    }
+
+    // Getters
+    public String getFirstName() {
+        return this.firstName;
+    }
+    public String getLastName() {
+        return this.lastName;
+    }
+    public Country getBirthCountry() {
+        return this.birthCountry;
+    }
+    public Date getBirthDate() {
+        return this.birthDate;
+    }
+
+    // Setters
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+    public void setBirthCountry(Country birthCountry) {
+        this.birthCountry = birthCountry;
+    }
+    public void setBirthDate(Date birthDate) {
+        this.birthDate = birthDate;
+    }
+
+    // toString implementation
+    @Override
+    public String toString() {
+        return "firstName = " + this.firstName + ", lastName = " + this.lastName + ", birthCountry = " + this.birthCountry.toString() + ", birthDate = " + this.birthDate.getDate() + "/" + this.birthDate.getMonth() + "/" +  this.birthDate.getYear();
+    }
+}
+
+/*
+Book.java
+ */
+import java.util.ArrayList;
+
+public class Book {
+    private ArrayList<Author> authors;
+    private String title;
+    private String publisher;
+    private String isbn;
+    // publishYear should be object Integer because it might be null
+    private Integer publishYear;
+    private int pages;
+
+
+    // Constructors
+    public Book(String title, ArrayList<Author> authors, int pages) {
+        this.title = title;
+        this.authors = authors;
+        this.pages = pages;
+    }
+    public Book(String title, ArrayList<Author> authors, int publishYear, String isbn, int pages, String publisher) {
+        this.title = title;
+        this.authors = authors;
+        this.publishYear = publishYear;
+        this.isbn = isbn;
+        this.pages = pages;
+        this.publisher = publisher;
+    }
+    // Getters
+
+    public String getTitle() {
+        return this.title;
+    }
+    public String getPublisher() {
+        return this.publisher;
+    }
+    public String getIsbn() {
+        return this.isbn;
+    }
+    public int getPublishYear() {
+        return this.publishYear;
+    }
+    public int getPages() {
+        return this.pages;
+    }
+    // Setters
+    public void setIsbn(String isbn) {
+        this.isbn = isbn;
+    }
+    public void setPublishYear(int publishYear) {
+        this.publishYear = publishYear;
+    }
+    public void setPublisher(String publisher) {
+        this.publisher = publisher;
+    }
+    public Boolean hasPublishYear() {
+        return !(this.publishYear == null);
+    }
+    // Methods
+    public int morePagesThan (Book book) {
+        if (this.pages > book.getPages()) {
+            return 1;
+        } else {
+            return 0;
+        }
+    }
+
+    public int latestPublishYear (Book book) {
+        // publish year may have not been initialized yet, because one constructor allows it
+        if  (!book.hasPublishYear()) {
+            throw new IllegalArgumentException("Given book publishYear has not been initialized");
+        } else if (!this.hasPublishYear()) {
+            throw new IllegalArgumentException("This book publishYear has not been initialized");
+        } else {
+            if (this.publishYear > book.getPublishYear()) {
+                return 1;
+            } else {
+                return 0;
+            }
+        }
+    }
+    // methods
+
+    public String morePagesThanToString(Book book) {
+        int result = morePagesThan(book);
+        if (result == 1) {
+            return "Book named: \"" + this.title + "\" has more pages than book named: \"" + book.getTitle()  + "\"";
+        } else {
+            return "Book named: \"" + book.getTitle() + "\" has more pages than book named: \"" + this.title  + "\"";
+        }
+    }
+
+    public String latestPublishYearToString(Book book) {
+        int result = latestPublishYear(book);
+        if (result == 1) {
+            return "Book named: \"" + this.title + "\" has been published more recently than book named: \"" + book.getTitle()  + "\"";
+        } else {
+            return "Book named: \"" + book.getTitle() + "\" has been published more recently than book named: \"" + this.title + "\"";
+        }
+    }
+
+    // toString implementation
+    @Override
+    public String toString() {
+        String authorStr = "";
+        for (Author a : this.authors) {
+            authorStr = authorStr + a.toString() + " | ";
+        }
+        return "title = " + this.title + ", publisher = " + this.publisher + ", isbn = " + this.isbn + ", pages = " + this.pages + ", authors = [" + authorStr + "]";
+    }
+}
+
+/*
+Library.java
+ */
+import java.util.ArrayList;
+import java.util.Date;
+
+public class Library {
+    public static void main(String[] args) {
+        // create book 1
+        Author authorOne =  createAuthor("Guenther", "Steiner", Country.ITALY, new Date(1965, 4, 7));
+        ArrayList<Author> bookOneAuthors = new ArrayList<>();
+        bookOneAuthors.add(authorOne);
+        Book bookOne = createBook("Surviving to Drive", bookOneAuthors, 2023, "9781787636286", 304, "Transworld Publishers Ltd");
+        // create book 2
+        Author authorTwo =  createAuthor("Adrian", "Newey", Country.ENGLAND, new Date(1958, 12, 26));
+        ArrayList<Author> bookTwoAuthors = new ArrayList<>();
+        bookTwoAuthors.add(authorTwo);
+//        Book bookTwo = createBook("How to Build a Car", bookTwoAuthors, 2017, "9780008196806", 400, "HarperCollins Publishers");
+        Book bookTwo = createBook("How to Build a Car", bookTwoAuthors, 400);
+
+
+        System.out.println(bookOne.toString());
+        System.out.println(bookTwo.toString());
+        System.out.println(bookOne.morePagesThanToString(bookTwo));
+//        System.out.println(bookTwo.latestPublishYearToString(bookOne));
+        System.out.println(bookOne.latestPublishYearToString(bookTwo));
+    }
+
+
+    // methods to create Authors with either constructor
+    public static Author createAuthor(String firstName, String lastName) {
+        return new Author(firstName, lastName);
+    }
+    public static Author createAuthor(String firstName, String lastName, Country birthCountry, Date birthDate) {
+        return new Author(firstName, lastName, birthCountry, birthDate);
+    }
+
+    // methods to create Books with either constructor
+    public static Book createBook(String title, ArrayList<Author> authors, int pages) {
+        return new Book(title, authors, pages);
+    }
+    public static Book createBook(String title, ArrayList<Author> authors, int publishYear, String isbn, int pages, String publisher) {
+        return new Book(title, authors, publishYear, isbn, pages, publisher);
+    }
+}

@@ -21,7 +21,6 @@ public class Library {
         System.out.println(bookOne.toString());
         System.out.println(bookTwo.toString());
         System.out.println(bookOne.morePagesThanToString(bookTwo));
-//        System.out.println(bookTwo.latestPublishYearToString(bookOne));
         System.out.println(bookOne.latestPublishYearToString(bookTwo));
     }
 

@@ -1,3 +1,6 @@
+/*
+Book.java
+ */
 import java.util.ArrayList;
 
 public class Book {
@@ -5,7 +8,8 @@ public class Book {
     private String title;
     private String publisher;
     private String isbn;
-    private int publishYear;
+    // publishYear should be object Integer because it might be null
+    private Integer publishYear;
     private int pages;
 
 
@@ -76,29 +80,34 @@ public class Book {
             }
         }
     }
+    // methods
 
     public String morePagesThanToString(Book book) {
         int result = morePagesThan(book);
         if (result == 1) {
-            return "Book named: \"" + this.title + "\"has more pages than book named: \"" + book.getTitle()  + "\"";
+            return "Book named: \"" + this.title + "\" has more pages than book named: \"" + book.getTitle()  + "\"";
         } else {
-            return "Book named: \"" + book.getTitle() + "\"has more pages than book named: \"" + this.title  + "\"";
+            return "Book named: \"" + book.getTitle() + "\" has more pages than book named: \"" + this.title  + "\"";
         }
     }
 
     public String latestPublishYearToString(Book book) {
         int result = latestPublishYear(book);
         if (result == 1) {
-            return "Book named: \"" + this.title + "\"has been published more recently than book named: \"" + book.getTitle()  + "\"";
+            return "Book named: \"" + this.title + "\" has been published more recently than book named: \"" + book.getTitle()  + "\"";
         } else {
-            return "Book named: \"" + book.getTitle() + "\"has been published more recently than book named: \"" + this.title + "\"";
+            return "Book named: \"" + book.getTitle() + "\" has been published more recently than book named: \"" + this.title + "\"";
         }
     }
 
     // toString implementation
     @Override
     public String toString() {
-        return "title = " + this.title + ", publisher = " + this.publisher + ", isbn = " + this.isbn + ", pages = " + this.pages + ", authors = " + this.authors;
+        String authorStr = "";
+        for (Author a : this.authors) {
+            authorStr = authorStr + a.toString() + " | ";
+        }
+        return "title = " + this.title + ", publisher = " + this.publisher + ", isbn = " + this.isbn + ", pages = " + this.pages + ", authors = [" + authorStr + "]";
     }
 }
 
